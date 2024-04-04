@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sidejobs', function (Blueprint $table) {
+        Schema::create('side_jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->unique();
-            $table->string('desk')->unique();
-            // $table->foreign('owner')->references('id')->on('users');
-            $table->date('tanggalbuat');
+            $table->string('nama');
+            $table->string('deskripsi');
+            $table->date('tanggal_buat');
+            $table->integer('pembuat')->unsigned();
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sidejobs');
+        Schema::dropIfExists('side_jobs');
     }
 };
