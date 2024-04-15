@@ -50,7 +50,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{ $sidejob->links() }}
+                        {{-- {{ $sidejob->links() }} --}}
                     </div>
                 </div>
             </div>
