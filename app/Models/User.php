@@ -46,4 +46,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function pembuat(){
+        return $this->hasMany('App\SideJobs');
+    }
 }

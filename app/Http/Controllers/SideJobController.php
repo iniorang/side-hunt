@@ -15,7 +15,7 @@ class SideJobController extends Controller
     //Tampilkan semua pekerjaan
     public function index(): View
     {
-        $sidejob = SideJob::latest()->paginate(10);
+        $sidejob = SideJob::where('pembuat',auth()->id())->paginate(10);
 
         return view('pekerjaan.list', compact('sidejob'));
     }
@@ -39,6 +39,7 @@ class SideJobController extends Controller
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'tanggal_buat' => $today->toDateString(),
+            'pembuat' => auth()->id()
         ]);
         return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil tersimpan']);
     }

@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('nama');
             $table->string('deskripsi');
             $table->date('tanggal_buat');
-            $table->integer('pembuat')->unsigned();
+            $table->bigInteger('pembuat')->unsigned();
             $table->timestamps();
+
+            $table->foreign('pembuat')->references('id')->on('users')->cascadeOnDelete();
         });
         
     }

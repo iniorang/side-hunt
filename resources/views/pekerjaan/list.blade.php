@@ -11,13 +11,23 @@
                 </div>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
+                        @auth
                         <a href="{{ route('sidejob.create') }}" class="btn btn-md btn-success mb-3">ADD PRODUCT</a>
+                        @endauth
+                        @guest
+                        {{-- kosong --}}
+                        @endguest
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Deskripsi</th>
+                                    @auth
                                     <th scope="col" style="width: 20%">ACTIONS</th>
+                                    @endauth
+                                    @guest
+
+                                    @endguest
                                 </tr>
                             </thead>
                             <tbody>
@@ -25,6 +35,7 @@
                                     <tr>
                                         <td>{{ $sidejob->nama }}</td>
                                         <td>{{ $sidejob->deskripsi }}</td>
+                                        @auth
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('sidejob.destroy', $sidejob->id) }}" method="POST">
                                                 <a href="{{ route('sidejob.show', $sidejob->id) }}" class="btn btn-sm btn-dark">SHOW</a>
@@ -34,6 +45,10 @@
                                                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                             </form>
                                         </td>
+                                        @endauth
+                                        @guest
+                                        {{-- kosong --}}
+                                        @endguest
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">

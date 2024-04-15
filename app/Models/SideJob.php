@@ -11,6 +11,11 @@ class SideJob extends Model
     protected $fillable = [
         'nama',
         'deskripsi',
+        'pembuat',
         'tanggal_buat'
     ];
+
+    public function punya(){
+        return $this->belongsTo('App\User');
+    }
 }
