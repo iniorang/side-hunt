@@ -1,12 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="hero-section">
+    <div class="container">
+        <div class="row px-3 py-5">
+            <div class="col-lg-6">
+                <h1 class="hero-heading mb-3">Temukan pekerjaan yang kamu inginkan!</h1>
+                <div class="d-grid gap-5  d-md-flex justify-content-md-start">
+                    <form>
+                        <input class="input-search-hero" type="text" placeholder="Cari Pekerjaan">
+                        <button type="button" class="my-button">Cari</button>
+                    </form>
+                </div>
+            </div>
+            {{-- <div class="col-10 col-sm-8 col-lg-6">
+                <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700"
+                    height="500" loading="lazy">
+            </div> --}}
+        </div>
+    </div>
+</div>
 <div class="container">
-    <div class="row justify-content-center">
+    {{-- <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
-
                 <div class="card-body">
                     <table class="table table-bordered">
                         <thead>
@@ -17,20 +35,20 @@
                         </thead>
                         <tbody>
                             @forelse ($sidejob as $sidejob)
-                                <tr>
-                                    <td>{{ $sidejob->nama }}</td>
-                                    <td>{{ $sidejob->deskripsi }}</td>
-                                </tr>
+                            <tr>
+                                <td>{{ $sidejob->nama }}</td>
+                                <td>{{ $sidejob->deskripsi }}</td>
+                            </tr>
                             @empty
-                                <div class="alert alert-danger">
-                                    Data kerja sampingan belum Tersedia.
-                                </div>
+                            <div class="alert alert-danger">
+                                Data kerja sampingan belum Tersedia.
+                            </div>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection
