@@ -1,7 +1,77 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid py-5 mt-2 justify-content-center w-50">
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
+        <h1 class="text-center display-5 fw-bold mb-5">Registrasi</h1>
+        <div class="mb-3">
+            <label for="email" class="mb-3">Nama</label>
+            <div class="col">
+                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                    value="{{ old('email') }}" required autocomplete="nama" autofocus>
+    
+                @error('nama')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="mb-3">Email</label>
+            <div class="col">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                    value="{{ old('email') }}" required autocomplete="email" autofocus>
+    
+                @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="mb-3">Nomor Telpon</label>
+            <div class="col">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                    value="{{ old('email') }}" required autocomplete="email" autofocus>
+    
+                @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="mb-3">Password</label>
+            <div class="col">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" required autocomplete="current-password">
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password-confirm" class="mb-3">Konfirmasi Password</label>
+            <div class="col">
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+            </div>
+        </div>
+        <div>
+            <div class="col mt-3">
+                    <button class="my-button">Daftar</button>
+                <p class="mt-3">Sudah Punya Akun? <a href="{{(route('login'))}}">Login</a></p>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -52,7 +122,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="telpon" class="col-md-4 col-form-label text-md-end">{{ __('Nomor Telepon') }}</label>
 
@@ -101,5 +170,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
