@@ -5,35 +5,28 @@
         <div class="row">
             <div class="col-md-12">
                 <div>
-                    <h3 class="text-center my-4">Tutorial Laravel 11 untuk Pemula</h3>
-                    <h5 class="text-center"><a href="https://santrikoding.com">www.santrikoding.com</a></h5>
-                    <hr>
+                    <h1 class="text-center display-5 fw-bold mb-5">Pekerjaan yang Terbuat</h1>
+                    {{-- <hr> --}}
                 </div>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        @auth
-                        <a href="{{ route('sidejob.create') }}" class="btn btn-md btn-success mb-3">ADD PRODUCT</a>
-                        @endauth
-                        @guest
-                        {{-- kosong --}}
-                        @endguest
+                        <a href="{{ route('sidejob.create') }}" class="btn btn-md btn-success mb-3">Daftarkan Pekerjaan</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Deskripsi</th>
-                                    @auth
-                                    <th scope="col" style="width: 20%">ACTIONS</th>
-                                    @endauth
-                                    @guest
-
-                                    @endguest
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Gaji</th>
+                                    <th scope="col" style="width: 20%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($sidejob as $sidejob)
                                     <tr>
                                         <td>{{ $sidejob->nama }}</td>
+                                        <td>{{ $sidejob->deskripsi }}</td>
+                                        <td>{{ $sidejob->deskripsi }}</td>
                                         <td>{{ $sidejob->deskripsi }}</td>
                                         @auth
                                         <td class="text-center">
@@ -52,7 +45,7 @@
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">
-                                        Data kerja sampingan belum Tersedia.
+                                        Tidak ada pekerjaan sampingan yang anda buat.
                                     </div>
                                 @endforelse
                             </tbody>
