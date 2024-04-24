@@ -4,7 +4,7 @@
 
 <div class="container-fluid py-5 mt-2 justify-content-center w-50">
     @csrf
-    <h1 class="text-center display-5 fw-bold mb-5">Registrasi</h1>
+    <h1 class="text-center display-5 fw-bold mb-5">Tambah</h1>
     <div class="row">
         <div class="col-md-12">
             <form action="{{ route('sidejob.store') }}" method="POST" enctype="multipart/form-data">
@@ -25,8 +25,31 @@
                     <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
                         value="{{ old('nama') }}" placeholder="Masukkan Nama Pekerjaan Sampingan">
 
-                    <!-- error message untuk title -->
                     @error('title')
+                    <div class="alert alert-danger mt-2">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Alamat</label>
+                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                        value="{{ old('alamat') }}" placeholder="Masukkan alamat pekerjaan yang akan diadakan">
+                        
+                    @error('alamat')
+                    <div class="alert alert-danger mt-2">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Gaji</label>
+                    <input type="number" class="form-control @error('gaji') is-invalid @enderror" name="gaji"
+                        value="{{ old('gaji') }}" placeholder="Masukkan gaji pekerjaan">
+                        
+                    @error('gaji')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}
                     </div>
@@ -45,6 +68,8 @@
                     </div>
                     @enderror
                 </div>
+
+                
                 <button type="submit" class="my-button me-3 align-item-center">Tambahkan</button>
             </form>
         </div>

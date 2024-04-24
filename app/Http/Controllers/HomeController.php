@@ -30,4 +30,8 @@ class HomeController extends Controller
 
         return view('home',compact('sidejob'));
     }
+
+    public function show($id) : View {
+        
+    }
 }

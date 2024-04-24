@@ -12,7 +12,9 @@ class SideJob extends Model
         'nama',
         'deskripsi',
         'pembuat',
-        'tanggal_buat'
+        'tanggal_buat',
+        'alamat',
+        'gaji'
     ];
 
     public function punya(){

@@ -34,6 +34,30 @@
             </div>
 
             <div class="form-group mb-3">
+                <label class="font-weight-bold">Alamat</label>
+                <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                    value="{{ old('alamat') }}" placeholder="Masukkan alamat pekerjaan yang akan diadakan">
+                    
+                @error('alamat')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="font-weight-bold">Gaji</label>
+                <input type="number" class="form-control @error('gaji') is-invalid @enderror" name="gaji"
+                    value="{{ old('gaji') }}" placeholder="Masukkan gaji pekerjaan">
+                    
+                @error('gaji')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
                 <label class="font-weight-bold">Deskripsi</label>
                 <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" rows="5"
                     placeholder="Masukkan Deskripsi Pekerjaan">{{ old('deskripsi',$sidejob->deskripsi) }}</textarea>

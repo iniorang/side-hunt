@@ -29,9 +29,13 @@ class SideJobController extends Controller
     //Cara memasukan inputan kerja sampingan ke database
     public function store(Request $request): RedirectResponse
     {
+        // dd($request->all());
+
         $request->validate([
             'nama' => 'required|min:5',
-            'deskripsi' => 'required|min:10'
+            'deskripsi' => 'required|min:10',
+            'alamat' => 'required',
+            'gaji'=> 'required'
         ]);
         $today = Carbon::now();
 
@@ -39,6 +43,8 @@ class SideJobController extends Controller
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'tanggal_buat' => $today->toDateString(),
+            'alamat' => $request->alamat,
+            'gaji' => $request->gaji,
             'pembuat' => auth()->id()
         ]);
         return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil tersimpan']);

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('deskripsi');
             $table->date('tanggal_buat');
+            $table->string('alamat');
+            $table->integer('gaji');
             $table->bigInteger('pembuat')->unsigned();
             $table->timestamps();
 

@@ -20,9 +20,9 @@
         </div>
     </div>
 </div>
-<div class="container">
-    {{-- <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
                 <div class="card-body">
@@ -30,18 +30,20 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nama</th>
-                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Alamat</th>
+                                <th scope="col">Lihat</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($sidejob as $sidejob)
                             <tr>
                                 <td>{{ $sidejob->nama }}</td>
-                                <td>{{ $sidejob->deskripsi }}</td>
+                                <td>{{ $sidejob->alamat }}</td>
+                                <td><a href="{{ route('sidejob.show', $sidejob->id) }}" class="btn btn-sm btn-dark">SHOW</a></td>
                             </tr>
                             @empty
                             <div class="alert alert-danger">
-                                Data kerja sampingan belum Tersedia.
+                                Data kerja sampingan tidak ada.
                             </div>
                             @endforelse
                         </tbody>
@@ -49,6 +51,6 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
 @endsection
