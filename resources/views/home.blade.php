@@ -7,9 +7,9 @@
             <div class="col-lg-6">
                 <h1 class="hero-heading mb-3">Temukan pekerjaan yang kamu inginkan!</h1>
                 <div class="d-grid gap-5  d-md-flex justify-content-md-start">
-                    <form>
-                        <input class="input-search-hero" type="text" placeholder="Cari Pekerjaan">
-                        <button type="button" class="my-button">Cari</button>
+                    <form action="{{route('sidejob.cari')}}" method="GET">
+                        <input class="input-search-hero" type="text" name="cari" placeholder="Cari Pekerjaan">
+                        <button type="submit" class="my-button">Cari</button>
                     </form>
                 </div>
             </div>
@@ -24,7 +24,7 @@
     <div class="row justify-content-center">
         <div class="col">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('List') }}</div>
                 <div class="card-body">
                     <table class="table table-bordered">
                         <thead>

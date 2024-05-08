@@ -84,6 +84,7 @@ class SideJobController extends Controller
         return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil diubah']);
     }
 
+    //Metode untuk menghapus data di database
     public function destroy($id): RedirectResponse
     {
         $sidejob = SideJob::findorfail($id);
@@ -91,5 +92,13 @@ class SideJobController extends Controller
         $sidejob->delete();
 
         return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil dihapus']);
+    }
+
+    //Metode untuk mencari data
+    public function cari(Request $request){
+        $cari = $request->input('cari');
+        $hasil = SideJob::where('nama','like',"%".$cari."%")->paginate(30);
+
+        return view('pekerjaan.hasil', compact('hasil'));
     }
 }
