@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RequestHire;
 use App\Models\SideJob;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,7 @@ class SideJobController extends Controller
     //Tampilkan semua pekerjaan
     public function index(): View
     {
-        $sidejob = SideJob::where('pembuat',auth()->id())->paginate(10);
+        $sidejob = SideJob::where('pembuat', auth()->id())->paginate(10);
 
         return view('pekerjaan.list', compact('sidejob'));
     }
@@ -35,7 +36,7 @@ class SideJobController extends Controller
             'nama' => 'required|min:5',
             'deskripsi' => 'required|min:10',
             'alamat' => 'required',
-            'gaji'=> 'required'
+            'gaji' => 'required'
         ]);
         $today = Carbon::now();
 
@@ -95,10 +96,30 @@ class SideJobController extends Controller
     }
 
     //Metode untuk mencari data
-    public function cari(Request $request){
+    public function cari(Request $request)
+    {
         $cari = $request->input('cari');
-        $hasil = SideJob::where('nama','like',"%".$cari."%")->paginate(30);
+        $hasil = SideJob::where('nama', 'like', "%" . $cari . "%")->paginate(30);
 
         return view('pekerjaan.hasil', compact('hasil'));
+    }
+
+    public function buatPermintaan($job)
+    {
+        $user = auth()->user();
+        $sidejob = SideJob::findorfail($job);
+        $daftar = new RequestHire();
+        $daftar->user_id = $user->id;
+        $daftar->job_id = $sidejob->id;
+        $daftar->status = 'tunda';
+        $daftar->save();
+        return;
+    }
+
+    public function terimaPendaftar($requestId)
+    {
+        $request = RequestHire::find($requestId);
+        $request->update(['status'=>'diterima']);
+        
     }
 }

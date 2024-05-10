@@ -10,5 +10,6 @@ use App\Http\Controllers\SideJobController;
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('/sidejob', \App\Http\Controllers\SideJobController::class);
-Route::get('/sidejob', [SideJobController::class,'cari'])->name('sidejob.cari');
+Route::get('/sidejob/cari', [SideJobController::class,'cari'])->name('sidejob.cari');
+Route::resource('/sidejob', SideJobController::class);
+
