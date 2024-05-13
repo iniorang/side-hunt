@@ -17,7 +17,12 @@ class SideJob extends Model
         'gaji'
     ];
 
-    public function punya(){
-        return $this->belongsTo('App\User');
+    public function pembuat(){
+        return $this->belongsTo(User::class);
     }
+    
+    public function pelamar(){
+        return $this->belongsToMany(SideJob::class, 'pelamars', 'user_id', 'job_id');
+    }
+
 }

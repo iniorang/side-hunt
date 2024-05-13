@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RequestHire;
 use App\Models\SideJob;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\Pelamar;
+
 
 class SideJobController extends Controller
 {
@@ -56,9 +55,10 @@ class SideJobController extends Controller
     {
         //Cari data sesuai id
         $sidejob = SideJob::findorfail($id);
-
+        $pelamar = Pelamar::where('job_id', $sidejob->id)->paginate(10);
+        
         //Kirimkan ke view ini
-        return view('pekerjaan.detail', compact('sidejob'));
+        return view('pekerjaan.detail', compact('sidejob','pelamar'));
     }
 
     //Tampilan untuk form edit 
@@ -104,22 +104,26 @@ class SideJobController extends Controller
         return view('pekerjaan.hasil', compact('hasil'));
     }
 
-    public function buatPermintaan($job)
+    public function buatPermintaan(Request $request,SideJob $sidejob): RedirectResponse
     {
-        $user = auth()->user();
-        $sidejob = SideJob::findorfail($job);
-        $daftar = new RequestHire();
-        $daftar->user_id = $user->id;
-        $daftar->job_id = $sidejob->id;
-        $daftar->status = 'tunda';
-        $daftar->save();
-        return;
+        Pelamar::create([
+            'user_id' => auth()->id(),
+            'job_id' => $sidejob->id,
+           'status' => 'tunda'
+        ]);
+
+        return redirect()->back();
     }
 
-    public function terimaPendaftar($requestId)
+    public function terima(Pelamar $pelamar)
     {
-        $request = RequestHire::find($requestId);
-        $request->update(['status'=>'diterima']);
-        
+        $pelamar->update(['status'=>'diterima']);
+        return redirect()->back();
+    }
+
+    public function tolak(Pelamar $pelamar)
+    {
+        $pelamar->update(['status'=>'ditolak']);
+        return redirect()->back();
     }
 }

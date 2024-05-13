@@ -36,7 +36,7 @@
             <div class="form-group mb-3">
                 <label class="font-weight-bold">Alamat</label>
                 <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat"
-                    value="{{ old('alamat') }}" placeholder="Masukkan alamat pekerjaan yang akan diadakan">
+                    value="{{ old('alamat',$sidejob->alamat) }}" placeholder="Masukkan alamat pekerjaan yang akan diadakan">
                     
                 @error('alamat')
                 <div class="alert alert-danger mt-2">
@@ -48,7 +48,7 @@
             <div class="form-group mb-3">
                 <label class="font-weight-bold">Gaji</label>
                 <input type="number" class="form-control @error('gaji') is-invalid @enderror" name="gaji"
-                    value="{{ old('gaji') }}" placeholder="Masukkan gaji pekerjaan">
+                    value="{{ old('gaji',$sidejob->gaji) }}" placeholder="Masukkan gaji pekerjaan">
                     
                 @error('gaji')
                 <div class="alert alert-danger mt-2">
@@ -77,5 +77,4 @@
     </div>
 </div>
 </div>
-
 @endsection

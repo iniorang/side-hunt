@@ -48,6 +48,10 @@ class User extends Authenticatable
     }
 
     public function pembuat(){
-        return $this->hasMany('App\SideJobs');
+        return $this->hasMany(SideJob::class);
+    }
+    
+    public function pelamar(){
+        return $this->belongsToMany(User::class, 'pelamars');
     }
 }
