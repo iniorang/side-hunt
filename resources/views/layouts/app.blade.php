@@ -75,7 +75,9 @@
                                 <a class="dropdown-item" href="{{ route('sidejob.index') }}">
                                     <p>Atur Pekerjaan</p>
                                 </a>
-
+                                <a class="dropdown-item" href="{{ route('user.history') }}">
+                                    <p>Status Lamaran</p>
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -94,4 +96,5 @@
         @yield('content')
     </div>
 </body>
+
 </html>

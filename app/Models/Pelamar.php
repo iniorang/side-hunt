@@ -17,6 +17,6 @@ class Pelamar extends Model
     }
     
     public function sidejob(){
-        return $this->belongsTo(SideJob::class);
+        return $this->belongsTo(SideJob::class,'job_id');
     }
 }
