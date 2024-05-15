@@ -18,7 +18,7 @@ class SideJob extends Model
     ];
 
     public function pembuat(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'pembuat');
     }
     
     public function pelamar(){

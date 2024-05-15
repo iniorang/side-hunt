@@ -48,7 +48,7 @@ class User extends Authenticatable
     }
 
     public function pembuat(){
-        return $this->hasMany(SideJob::class);
+        return $this->hasMany(SideJob::class,'pembuat');
     }
     
     public function pelamar(){

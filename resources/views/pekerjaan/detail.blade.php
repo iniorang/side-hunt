@@ -14,8 +14,8 @@
                         <p>{{ $sidejob->deskripsi }}</p>
                         <h4>Lokasi Pekerjaan</h4>
                         <p>{{ $sidejob->alamat}}</p>
-                        {{-- <h4>Pembuat</h4> --}}
-                        {{-- <p>{{ $sidejob->pembuat->name}}</p> --}}
+
+                        {{-- Untuk yang log in adalah pembuat --}}
                         @if(auth()->check())
                         @php
                         $userApplied = app('App\Models\Pelamar')->where('job_id', $sidejob->id)->where('user_id', auth()->id())->exists();
@@ -29,7 +29,7 @@
                             </form>
                             <h4>Daftar Pelamar:</h4>
                             <ul>
-                                @foreach($pelamar as $pelamar)
+                                @foreach($pelamar as $pelamaritem)
                                     <li>
                                         <p>{{ $pelamar->user->nama }}</p>
                                         @if($pelamar->status == 'tunda')
@@ -49,14 +49,26 @@
                                     </li>
                                 @endforeach
                             </ul>
+                        {{-- Untuk yang login yang bukan pembuat dan belum daftar ke pekerjaan tersebut --}}
                         @elseif(!$userApplied)
                             <form action="{{ route('sidejob.buatPermintaan', $sidejob) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Daftar Pekerjaan</button>
                             </form>
                         @else
+                        {{-- Untuk yang membuat lamaran menunggu status--}}
+                        @php
+                        $userPelamar = $pelamar->where('user_id', auth()->id())->first();
+                        @endphp
+                        @if($userPelamar->status == 'tunda')
                             <p>Anda sudah melamar, tunggu pembuat membuat pilihan untuk terima atau tolak.</p>
+                        @elseif($userPelamar->status == 'diterima')
+                            <p>Anda sudah diterima oleh pembuat.</p>
+                        @elseif($userPelamar->status == 'ditolak')
+                            <p>Anda sudah ditolak oleh pembuat.</p>
                         @endif
+                        @endif
+                        {{-- Guest --}}
                     @else
                         <a href="{{ route('login') }}" class="btn btn-primary">Login untuk Melamar</a>
                     @endif
