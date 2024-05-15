@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -49,18 +50,22 @@
                         </li>
                         <!-- Authentication Links -->
                         @guest
+                        @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">
                                 <button class="my-button-2">Login</button>
                             </a>
                         </li>
+                        @endif
 
+                        @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">
                                 <button class="my-button-2">Register</button>
                             </a>
                         </li>
-                        @endguest
+                        @endif
+                        @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
@@ -80,12 +85,13 @@
                                 </form>
                             </div>
                         </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
         </nav>
+        
         @yield('content')
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </div>
 </body>
 </html>

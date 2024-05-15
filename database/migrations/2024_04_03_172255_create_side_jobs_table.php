@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger('pembuat')->unsigned();
             $table->timestamps();
 
-            $table->foreign('pembuat')->references('id')->on('users')->cascadeOnDelete();
+            // $table->foreign('pembuat')->references('id')->on('users')->cascadeOnDelete();
         });
         
     }
