@@ -31,20 +31,20 @@
                             <ul>
                                 @foreach($pelamar as $pelamaritem)
                                     <li>
-                                        <p>{{ $pelamar->user->nama }}</p>
-                                        @if($pelamar->status == 'tunda')
-                                            <form action="{{ route('pelamar.terima', $pelamar) }}" method="POST">
+                                        <p>{{ $pelamaritem->user->nama }}</p>
+                                        @if($pelamaritem->status == 'tunda')
+                                            <form action="{{ route('pelamar.terima', $pelamaritem) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-success">Terima</button>
                                             </form>
-                                            <form action="{{ route('pelamar.tolak', $pelamar) }}" method="POST">
+                                            <form action="{{ route('pelamar.tolak', $pelamaritem) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-danger">Tolak</button>
                                             </form>
                                         @else
-                                            Status: {{ $pelamar->status }}
+                                            Status: {{ $pelamaritem->status }}
                                         @endif
                                     </li>
                                 @endforeach
