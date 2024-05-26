@@ -35,7 +35,8 @@ class SideJobController extends Controller
             'nama' => 'required|min:5',
             'deskripsi' => 'required|min:10',
             'alamat' => 'required',
-            'gaji' => 'required'
+            'gaji' => 'required',
+            'max_pekerja' => 'required',
         ]);
         $today = Carbon::now();
 
@@ -45,6 +46,7 @@ class SideJobController extends Controller
             'tanggal_buat' => $today->toDateString(),
             'alamat' => $request->alamat,
             'gaji' => $request->gaji,
+            'max_pekerja' => $request->max_pekerja,
             'pembuat' => auth()->id()
         ]);
         return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil tersimpan']);
@@ -74,12 +76,19 @@ class SideJobController extends Controller
     {
         $request->validate([
             'nama' => 'required|min:5',
-            'deskripsi' => 'required|min:10'
+            'deskripsi' => 'required|min:10',
+            'alamat' => 'required',
+            'gaji' => 'required',
+            'max_pekerja' => 'required',
         ]);
         $sidejob = SideJob::findorfail($id);
         $sidejob->update([
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
+            'alamat' => $request->alamat,
+            'gaji' => $request->gaji,
+            'max_pekerja' => $request->max_pekerja,
+            'pembuat' => auth()->id()
         ]);
 
         return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil diubah']);
@@ -109,7 +118,7 @@ class SideJobController extends Controller
         Pelamar::create([
             'user_id' => auth()->id(),
             'job_id' => $sidejob->id,
-           'status' => 'tunda'
+            'status' => 'tunda'
         ]);
 
         return redirect()->back();

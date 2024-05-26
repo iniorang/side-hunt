@@ -19,6 +19,11 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('job_id')->references('id')->on('side_jobs')->onDelete('cascade');
         });
+
+        Schema::table('transaksis', function (Blueprint $table){
+            $table->foreign('pembuat_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('pekerja_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**

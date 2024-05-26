@@ -15,7 +15,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Nama</th>
-                                    <th scope="col">Deskripsi</th>
                                     <th scope="col">Alamat</th>
                                     <th scope="col">Gaji</th>
                                     <th scope="col" style="width: 20%">Aksi</th>
@@ -25,7 +24,6 @@
                                 @forelse ($sidejob as $sidejob)
                                     <tr>
                                         <td>{{ $sidejob->nama }}</td>
-                                        <td>{{ $sidejob->deskripsi }}</td>
                                         <td>{{ $sidejob->alamat }}</td>
                                         <td>Rp{{ $sidejob->gaji }}</td>
                                         @auth
@@ -39,9 +37,6 @@
                                             </form>
                                         </td>
                                         @endauth
-                                        @guest
-                                        {{-- kosong --}}
-                                        @endguest
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">

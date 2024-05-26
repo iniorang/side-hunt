@@ -14,7 +14,9 @@ class SideJob extends Model
         'pembuat',
         'tanggal_buat',
         'alamat',
-        'gaji'
+        'gaji',
+        'jumlah_max_pekerja',
+        'jumlah_pelamar_diterima'
     ];
 
     public function pembuat(){

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('alamat');
             $table->bigInteger('telpon')->unique();
+            $table->decimal('dompet')->default('0');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
