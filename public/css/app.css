@@ -36,10 +36,10 @@ input {
 }
 
 .my-button {
-    font-size: 20px;
+    font-size: 15px;
     /* border-color: rgba(242, 194, 85, 1, 0%); */
     padding: 6px 20px 6px 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     background: rgba(242, 194, 85, 1);
 }
 

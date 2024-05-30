@@ -6,7 +6,7 @@
         @csrf
         <h1 class="text-center display-5 fw-bold mb-5">Registrasi</h1>
         <div class="mb-3">
-            <label for="email" class="mb-3">Nama Lengkap</label>
+            <label for="email" class="mb-3">Nama Lengkap :</label>
             <div class="col">
                 <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
                     value="{{ old('nama') }}" required autocomplete="nama" autofocus>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="email" class="mb-3">Email</label>
+            <label for="email" class="mb-3">Email :</label>
             <div class="col">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                     value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="telpon" class="mb-3">Nomor Telpon</label>
+            <label for="telpon" class="mb-3">Nomor Telpon :</label>
             <div class="col">
                 <input id="telpon" type="number" class="form-control @error('telpon') is-invalid @enderror" name="telpon"
                     value="{{ old('telpon') }}" required autocomplete="number" autofocus>
@@ -45,12 +45,12 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="email" class="mb-3">Alamat</label>
+            <label for="email" class="mb-3">Alamat :</label>
             <div class="col">
                 <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat"
                     value="{{ old('alamat') }}" required autofocus>
     
-                @error('almat')
+                @error('alamat')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="password" class="mb-3">Password</label>
+            <label for="password" class="mb-3">Password  :</label>
             <div class="col">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                     name="password" required autocomplete="current-password">
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="password-confirm" class="mb-3">Konfirmasi Password</label>
+            <label for="password-confirm" class="mb-3">Konfirmasi Password :</label>
             <div class="col">
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
             </div>
@@ -86,7 +86,7 @@
 
 {{-- <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        < div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
