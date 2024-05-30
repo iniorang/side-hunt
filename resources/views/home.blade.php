@@ -40,7 +40,8 @@
                             <tr>
                                 <td>{{ $sidejob->nama }}</td>
                                 <td>{{ $sidejob->alamat }}</td>
-                                <td><a href="{{ route('sidejob.show', $sidejob->id) }}" class="btn btn-sm btn-dark">SHOW</a></td>
+                                <td><a href="{{ route('sidejob.show', $sidejob->id) }}"
+                                        class="btn btn-sm btn-dark">SHOW</a></td>
                             </tr>
                             @empty
                             <div class="alert alert-danger">
@@ -54,16 +55,19 @@
         </div>
         <div class="container">
             <div id="map">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+                <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
                 <script>
-                    var map = L.map('map').setView([51.505, -0.09], 13);
-                    
+                    var map = L.map('map').setView([-2.526, 117.905], 10);
+                    var lc = L.control.locate().addTo(map);
+                    lc.start();
+
                     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
                 </script>
             </div>
         </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-@endsection
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        @endsection
