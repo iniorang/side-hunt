@@ -35,8 +35,9 @@ class SideJobController extends Controller
             'nama' => 'required|min:5',
             'deskripsi' => 'required|min:10',
             'alamat' => 'required',
-            'gaji' => 'required',
-            'max_pekerja' => 'required',
+            'min_gaji' => 'required|numeric',
+            'max_gaji' => 'required|numeric',
+            'max_pekerja' => 'required|numeric',
         ]);
         $today = Carbon::now();
 
@@ -45,8 +46,10 @@ class SideJobController extends Controller
             'deskripsi' => $request->deskripsi,
             'tanggal_buat' => $today->toDateString(),
             'alamat' => $request->alamat,
-            'gaji' => $request->gaji,
+            'min_gaji' => $request->min_gaji,
+            'max_gaji' => $request->max_gaji,
             'max_pekerja' => $request->max_pekerja,
+            'jumlah_pelamar_diterima' => '0',
             'pembuat' => auth()->id()
         ]);
         return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil tersimpan']);
@@ -78,16 +81,19 @@ class SideJobController extends Controller
             'nama' => 'required|min:5',
             'deskripsi' => 'required|min:10',
             'alamat' => 'required',
-            'gaji' => 'required',
-            'max_pekerja' => 'required',
+            'min_gaji' => 'required|numeric',
+            'max_gaji' => 'required|numeric',
+            'max_pekerja' => 'required|numeric',
         ]);
         $sidejob = SideJob::findorfail($id);
         $sidejob->update([
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'alamat' => $request->alamat,
-            'gaji' => $request->gaji,
+            'min_gaji' => $request->min_gaji,
+            'max_gaji' => $request->max_gaji,
             'max_pekerja' => $request->max_pekerja,
+            'jumlah_pelamar_diterima' => '0',
             'pembuat' => auth()->id()
         ]);
 

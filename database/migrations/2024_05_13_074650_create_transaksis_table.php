@@ -17,8 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('pembuat_id');
             $table->string('pekerja');
             $table->unsignedBigInteger('pekerja_id');
-            $table->decimal('jumlah');
-            $table->enum('status', ['tertunda', 'sukses', 'gagal'])->default('tunda');
+            $table->integer('jumlah');
+            $table->enum('jenis', ['masuk', 'keluar']);
+            $table->enum('status', ['tertunda', 'sukses', 'gagal'])->default('tertunda');
             $table->dateTimeTz('dibuat');
             $table->timestamps();
         });

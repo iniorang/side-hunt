@@ -35,7 +35,7 @@
             <label for="telpon" class="mb-3">Nomor Telpon</label>
             <div class="col">
                 <input id="telpon" type="number" class="form-control @error('telpon') is-invalid @enderror" name="telpon"
-                    value="{{ old('telpon') }}" required autocomplete="email" autofocus>
+                    value="{{ old('telpon') }}" required autocomplete="number" autofocus>
     
                 @error('telpon')
                 <span class="invalid-feedback" role="alert">

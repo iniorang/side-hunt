@@ -17,13 +17,12 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->date('tanggal_buat');
             $table->string('alamat');
-            $table->decimal('gaji');
+            $table->integer('min_gaji');
+            $table->integer('max_gaji');
             $table->integer('max_pekerja');
             $table->integer('jumlah_pelamar_diterima')->default('0');
             $table->bigInteger('pembuat')->unsigned();
             $table->timestamps();
-
-            // $table->foreign('pembuat')->references('id')->on('users')->cascadeOnDelete();
         });
         
     }

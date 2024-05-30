@@ -25,7 +25,7 @@
                                     <tr>
                                         <td>{{ $sidejob->nama }}</td>
                                         <td>{{ $sidejob->alamat }}</td>
-                                        <td>Rp{{ $sidejob->gaji }}</td>
+                                        <td>Rp{{ $sidejob->min_gaji }} - Rp{{ $sidejob->max_gaji}}</td>
                                         @auth
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('sidejob.destroy', $sidejob->id) }}" method="POST">

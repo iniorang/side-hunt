@@ -12,4 +12,12 @@ class Transaksi extends Model
     protected $fillable = [
         'pembuat','pembuat_id','pekerja','pekerja_id','jumlah','dibuat'
     ];
+
+    public function pembuat(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function pekerja(){
+        return $this->belongsTo(User::class);
+    }
 }
