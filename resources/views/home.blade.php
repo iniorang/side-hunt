@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+@section('peta')
+#map{
+    height: 800px;
+}
+@endsection
 
 @section('content')
 <div class="hero-section">
@@ -14,10 +18,6 @@
                     </form>
                 </div>
             </div>
-            {{-- <div class="col-10 col-sm-8 col-lg-6">
-                <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700"
-                    height="500" loading="lazy">
-            </div> --}}
         </div>
     </div>
 </div>
@@ -53,12 +53,12 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container mt-5">
             <div id="map">
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
                 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
                 <script>
-                    var map = L.map('map').setView([-2.526, 117.905], 10);
+                    var map = L.map('map').setView([-2.526, 117.905], 5);
                     var lc = L.control.locate().addTo(map);
                     lc.start();
 
