@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('peta')
 #map{
-    height: 800px;
+height: 800px;
 }
 @endsection
 
@@ -55,8 +55,15 @@
         </div>
         <div class="container mt-5">
             <div id="map">
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-                <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+                <link rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+                <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js"
+                    charset="utf-8"></script>
+                        <!-- Load Esri Leaflet from CDN -->
+                <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
+                        <!-- Load Esri Leaflet Geocoder from CDN -->
+                <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.css" crossorigin="" />
+                 <script src="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.js" crossorigin=""></script>
                 <script>
                     var map = L.map('map').setView([-2.526, 117.905], 5);
                     var lc = L.control.locate().addTo(map);
@@ -66,6 +73,24 @@
                         maxZoom: 19,
                         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     }).addTo(map);
+
+                    var searchControl = L.esri.Geocoding.geosearch({
+                        position: "topright",
+                        placeholder: "Masukan alamat",
+                        providers: [
+                            L.esri.Geocoding.arcgisOnlineProvider({
+                                apikey: 'AAPK3e52398025234807add84f416a03c213CPb7ak6zNzwQYIBhQ9PIx-oBY_1mtsbVR1klbU-RrJ6TWtK5mP28C-lfmNqfndnS'
+                            })
+                        ]
+                    }).addTo(map);
+                    var results = L.layerGroup().addTo(map);
+
+                    searchControl.on("results", function (data) {
+                        results.clearLayers();
+                        for (var i = data.results.length - 1; i >= 0; i--) {
+                            results.addLayer(L.marker(data.results[i].latlng));
+                        }
+                    });
                 </script>
             </div>
         </div>

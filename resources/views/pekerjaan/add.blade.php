@@ -55,30 +55,11 @@ padding: 0;
                     crossorigin=""></script>
                 <script>
                     var map = L.map('map').setView([-2.526, 117.905], 5);
-                    L.control.locate().addTo(map).start();
                     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         maxZoom: 19,
                         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     }).addTo(map);
-
-                    function onMapClick(e) {
-                        var coords = document.querySelector("[name=coordinate]")
-                        var latitude = document.querySelector("[name=latitude]")
-                        var longitude = document.querySelector("[name=longitude]")
-                        var lat = e.latlng.lat
-                        var lng = e.latlng.lng
-
-                        if (!marker) {
-                            marker = L.marker(e.latlng).addTo(map)
-                        } else {
-                            marker.setLatLng(e.latlng)
-                        }
-
-                        coords.value = lat + "," + lng
-                        latitude.value = lat,
-                        longitude.value = lng
-                    }
-                    map.on('click', onMapClick)
+                    
                 </script>
 
                 <div class="form-group mb-3">
