@@ -37,121 +37,125 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <div class="mt-3" id="map"></div>
-                    </div>
-                    <link rel="stylesheet"
-                        href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-                    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-                    <!-- Load Leaflet from CDN -->
-                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+                        <div class="mt-3" id="map">
+                            <link rel="stylesheet"
+                                href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+                            <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+                            <!-- Load Leaflet from CDN -->
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+                            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
-                    <!-- Load Esri Leaflet from CDN -->
-                    <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
-                    <script src="https://unpkg.com/esri-leaflet-vector@4.2.3/dist/esri-leaflet-vector.js"></script>
+                            <!-- Load Esri Leaflet from CDN -->
+                            <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
+                            <script src="https://unpkg.com/esri-leaflet-vector@4.2.3/dist/esri-leaflet-vector.js"></script>
 
-                    <!-- Load Esri Leaflet Geocoder from CDN -->
-                    <link rel="stylesheet"
-                        href="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.css">
-                    <script src="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.js"></script>
-                    <script>
-                        const apiKey =
-                            "AAPK3e52398025234807add84f416a03c213CPb7ak6zNzwQYIBhQ9PIx-oBY_1mtsbVR1klbU-RrJ6TWtK5mP28C-lfmNqfndnS";
+                            <!-- Load Esri Leaflet Geocoder from CDN -->
+                            <link rel="stylesheet"
+                                href="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.css">
+                            <script src="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.js"></script>
+                            <script>
+                                const apiKey =
+                                    "AAPK3e52398025234807add84f416a03c213CPb7ak6zNzwQYIBhQ9PIx-oBY_1mtsbVR1klbU-RrJ6TWtK5mP28C-lfmNqfndnS";
 
-                        const basemapEnum = "arcgis/navigation";
+                                const basemapEnum = "arcgis/navigation";
 
-                        const map = L.map("map", {
-                            minZoom: 2
-                        })
-
-                        function onLocationFound(e) {
-                            L.marker(e.latlng).addTo(map);
-                            var coords = document.querySelector("[name=coordinate]")
-                            var latitude = document.querySelector("[name=latitude]")
-                            var longitude = document.querySelector("[name=longitude]")
-                            var lat = e.latlng.lat
-                            var lng = e.latlng.lng
-
-                            coords.value = lat + "," + lng
-                            latitude.value = lat,
-                            longitude.value = lng
-                        }
-
-                        function onLocationError(e) {
-                            alert(e.message);
-                        }
-
-                        map.on('locationerror', onLocationError);
-                        map.on('locationfound', onLocationFound);
-                        map.locate({setView: true, maxZoom: 16});
-                        var marker = L.marker([0, 0], {}).addTo(map);
-
-                        map.setView([-2.526, 117.905], 5);
-
-                        L.esri.Vector.vectorBasemapLayer(basemapEnum, {
-                            apiKey: apiKey
-                        }).addTo(map);
-
-                        const searchControl = L.esri.Geocoding.geosearch({
-                            position: "topright",
-                            placeholder: "Cari alamat anda",
-                            useMapBounds: false,
-
-                            providers: [
-                                L.esri.Geocoding.arcgisOnlineProvider({
-                                    apikey: apiKey,
+                                const map = L.map("map", {
+                                    minZoom: 2
                                 })
-                            ]
 
-                        }).addTo(map);
+                                function onLocationFound(e) {
+                                    L.marker(e.latlng).addTo(map);
+                                    var coords = document.querySelector("[name=koordinat]")
+                                    var latitude = document.querySelector("[name=latitude]")
+                                    var longitude = document.querySelector("[name=longitude]")
+                                    var lat = e.latlng.lat
+                                    var lng = e.latlng.lng
 
-                        function onMapClick(e) {
-                            var coords = document.querySelector("[name=coordinate]")
-                            var latitude = document.querySelector("[name=latitude]")
-                            var longitude = document.querySelector("[name=longitude]")
-                            var lat = e.latlng.lat
-                            var lng = e.latlng.lng
+                                    coords.value = lat + "," + lng
+                                    latitude.value = lat,
+                                        longitude.value = lng
+                                }
 
-                            if (!marker) {
-                                marker = L.marker(e.latlng).addTo(map)
-                            } else {
-                                marker.setLatLng(e.latlng)
-                            }
+                                function onLocationError(e) {
+                                    alert(e.message);
+                                }
 
-                            coords.value = lat + "," + lng
-                            latitude.value = lat,
-                            longitude.value = lng
-                        }
-                        map.on('click', onMapClick)
+                                map.on('locationerror', onLocationError);
+                                map.on('locationfound', onLocationFound);
+                                map.locate({
+                                    setView: true,
+                                    maxZoom: 16
+                                });
+                                var marker = L.marker([0, 0], {}).addTo(map);
 
-                        const results = L.layerGroup().addTo(map);
+                                map.setView([-2.526, 117.905], 5);
 
-                        searchControl.on("results", (data) => {
-                            results.clearLayers();
+                                L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+                                    apiKey: apiKey
+                                }).addTo(map);
 
-                            for (let i = data.results.length - 1; i >= 0; i--) {
-                                const marker = L.marker(data.results[i].latlng);
-                                var coords = document.querySelector("[name=coordinate]")
-                                var latitude = document.querySelector("[name=latitude]")
-                                var longitude = document.querySelector("[name=longitude]")
-                                var lat = data.results[i].latlng.lat
-                                var lng = data.results[i].latlng.lng
+                                const searchControl = L.esri.Geocoding.geosearch({
+                                    position: "topright",
+                                    placeholder: "Cari alamat anda",
+                                    useMapBounds: false,
 
-                                marker.bindPopup(`<b>${lat},${lng}</b><p>${data.results[i].properties.LongLabel}</p>`);
+                                    providers: [
+                                        L.esri.Geocoding.arcgisOnlineProvider({
+                                            apikey: apiKey,
+                                        })
+                                    ]
 
-                                results.addLayer(marker);
+                                }).addTo(map);
 
-                                marker.openPopup();
-                                coords.value = lat + "," + lng
-                                latitude.value = lat,
-                                    longitude.value = lng
-                            }
+                                function onMapClick(e) {
+                                    var coords = document.querySelector("[name=koordinat]")
+                                    var latitude = document.querySelector("[name=latitude]")
+                                    var longitude = document.querySelector("[name=longitude]")
+                                    var lat = e.latlng.lat
+                                    var lng = e.latlng.lng
 
-                        });
-                    </script>
+                                    if (!marker) {
+                                        marker = L.marker(e.latlng).addTo(map)
+                                    } else {
+                                        marker.setLatLng(e.latlng)
+                                    }
+
+                                    coords.value = lat + "," + lng
+                                    latitude.value = lat,
+                                        longitude.value = lng
+                                }
+                                map.on('click', onMapClick)
+
+                                const results = L.layerGroup().addTo(map);
+
+                                searchControl.on("results", (data) => {
+                                    results.clearLayers();
+
+                                    for (let i = data.results.length - 1; i >= 0; i--) {
+                                        const marker = L.marker(data.results[i].latlng);
+                                        var coords = document.querySelector("[name=koordinat]")
+                                        var latitude = document.querySelector("[name=latitude]")
+                                        var longitude = document.querySelector("[name=longitude]")
+                                        var lat = data.results[i].latlng.lat
+                                        var lng = data.results[i].latlng.lng
+
+                                        marker.bindPopup(`<b>${lat},${lng}</b><p>${data.results[i].properties.LongLabel}</p>`);
+
+                                        results.addLayer(marker);
+
+                                        marker.openPopup();
+                                        coords.value = lat + "," + lng
+                                        latitude.value = lat,
+                                            longitude.value = lng
+                                    }
+
+                                });
+                            </script>
+                        </div>
+                    </div>
 
                     <div class="form-group">
-                        <input type="hidden" class="form-control" name="coordinate" id="coordinate">
+                        <input type="hidden" class="form-control" name="koordinat" id="coordinate">
                     </div>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="latitude" id="latitude">

@@ -14,6 +14,7 @@ class SideJob extends Model
         'pembuat',
         'tanggal_buat',
         'alamat',
+        'koordinat',
         'min_gaji',
         'max_gaji',
         'max_pekerja',

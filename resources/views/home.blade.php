@@ -70,6 +70,11 @@
                     <link rel="stylesheet"
                         href="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.css">
                     <script src="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.js"></script>
+
+                    <link rel="stylesheet"
+                        href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+                    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8">
+                    </script>
                     <script>
                         const apiKey =
                             "AAPK3e52398025234807add84f416a03c213CPb7ak6zNzwQYIBhQ9PIx-oBY_1mtsbVR1klbU-RrJ6TWtK5mP28C-lfmNqfndnS";
@@ -80,27 +85,37 @@
                             minZoom: 2
                         })
 
-                        function onLocationFound(e) {
-                            L.marker(e.latlng).addTo(map);
-                        }
+                        // function onLocationFound(e) {
+                        //     L.marker(e.latlng).addTo(map);
+                        // }
 
-                        function onLocationError(e) {
-                            alert(e.message);
-                        }
+                        // function onLocationError(e) {
+                        //     alert(e.message);
+                        // }
 
-                        map.on('locationerror', onLocationError);
-                        map.on('locationfound', onLocationFound);
-                        map.locate({
-                            setView: true,
-                            maxZoom: 16
-                        });
-                        var marker = L.marker([0, 0], {}).addTo(map);
+                        // map.on('locationerror', onLocationError);
+                        // map.on('locationfound', onLocationFound);
+                        // map.locate({
+                        //     setView: true,
+                        //     maxZoom: 16
+                        // });
+
+                        // create control and add to map
+                        var lc = L.control.locate().addTo(map);
+
+                        // request location update and set location
+                        lc.start();
 
                         map.setView([-2.526, 117.905], 5);
 
                         L.esri.Vector.vectorBasemapLayer(basemapEnum, {
                             apiKey: apiKey
                         }).addTo(map);
+
+                        @foreach ($peta as $job)
+                            L.marker([{{ $job->koordinat }}]).bindPopup("<div class='my-2 fw-bold text-center'>{{ $job->nama }}</div>" +
+                                "<div class='my-2'>{{ $job->deskripsi }}</div>" + "").addTo(map);
+                        @endforeach
 
                         const searchControl = L.esri.Geocoding.geosearch({
                             position: "topright",
