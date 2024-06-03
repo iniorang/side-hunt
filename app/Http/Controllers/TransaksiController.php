@@ -16,4 +16,5 @@ class TransaksiController extends Controller
 
         return view('users.transaksi', compact('transaksi'));
     }
+    
 }

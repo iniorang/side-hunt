@@ -40,7 +40,7 @@
                                     <tr>
                                         <td>{{ $sidejob->nama }}</td>
                                         <td>{{ $sidejob->alamat }}</td>
-                                        <td><a href="{{ route('sidejob.show', $sidejob->id) }}"
+                                        <td><a href="{{ route('sidejob.detail', $sidejob->id) }}"
                                                 class="btn btn-sm btn-dark">SHOW</a></td>
                                     </tr>
                                 @empty
@@ -73,8 +73,7 @@
 
                     <link rel="stylesheet"
                         href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-                    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8">
-                    </script>
+                    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
                     <script>
                         const apiKey =
                             "AAPK3e52398025234807add84f416a03c213CPb7ak6zNzwQYIBhQ9PIx-oBY_1mtsbVR1klbU-RrJ6TWtK5mP28C-lfmNqfndnS";
@@ -84,21 +83,6 @@
                         const map = L.map("map", {
                             minZoom: 2
                         })
-
-                        // function onLocationFound(e) {
-                        //     L.marker(e.latlng).addTo(map);
-                        // }
-
-                        // function onLocationError(e) {
-                        //     alert(e.message);
-                        // }
-
-                        // map.on('locationerror', onLocationError);
-                        // map.on('locationfound', onLocationFound);
-                        // map.locate({
-                        //     setView: true,
-                        //     maxZoom: 16
-                        // });
 
                         // create control and add to map
                         var lc = L.control.locate().addTo(map);
@@ -113,9 +97,15 @@
                         }).addTo(map);
 
                         @foreach ($peta as $job)
-                            L.marker([{{ $job->koordinat }}]).bindPopup("<div class='my-2 fw-bold text-center'>{{ $job->nama }}</div>" +
-                                "<div class='my-2'>{{ $job->deskripsi }}</div>" + "").addTo(map);
+                            L.marker([{{ $job->koordinat }}]).bindPopup(`
+                        <div class='my-2 fw-bold text-center'>{{ $job->nama }}</div>
+                        <div class='my-2'>{{ $job->deskripsi }}</div>
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ route('sidejob.detail', $job->id) }}" class='btn text-center btn-sm btn-dark'>SHOW</a>
+                        </div>
+                        `).addTo(map);
                         @endforeach
+
 
                         const searchControl = L.esri.Geocoding.geosearch({
                             position: "topright",
