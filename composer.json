@@ -9,7 +9,8 @@
         "bavix/laravel-wallet": "^11.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "midtrans/midtrans-php": "^2.5"
+        "midtrans/midtrans-php": "^2.5",
+        "munafio/chatify": "^1.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
