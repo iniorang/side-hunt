@@ -23,7 +23,7 @@ body{
 input {
     border-radius: 20px !important;
     padding: 0px 20px 0px 20px;
-    font-size: 100px;
+    /* font-size: 100px; */
 }
 
 .input-search-hero {

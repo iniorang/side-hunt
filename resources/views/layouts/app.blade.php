@@ -86,6 +86,9 @@
                                 <a class="dropdown-item" href="{{ route('user.transaksi') }}">
                                     <p>Transaksi</p>
                                 </a>
+                                <a class="dropdown-item" href="{{ route(config('chatify.routes.prefix')) }}">
+                                    <p>Pesan</p>
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
