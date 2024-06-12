@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
 
@@ -13,4 +14,11 @@ class UsersController extends Controller
     
         return view('users.lamaran', compact('lamaran'));
     }
+    
+    public function show($id){
+        $user = User::findorfail($id);
+        return view('users.profile', compact('user'));
+    }
+
+    public
 }

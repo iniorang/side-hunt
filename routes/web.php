@@ -33,4 +33,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('user.transaksi');
 });
 
+Route::middleware(['isAdmin'])->group(function(){
+    Route::get('/admin', [HomeController::class, 'admin'])->name('admin.index');
+    Route::get('/admin/pelamar', [UsersController::class, 'pelamar'])->name('admin.pelamar');
+    Route::get('/admin/pekerja', [UsersController::class, 'pekerja'])->name('admin.pekerja');
+    Route::get('/admin/sidejob', [SideJobController::class, 'admin'])->name('admin.sidejob');
+    Route::get('/admin/transaksi', [TransaksiController::class, 'admin'])->name('admin.transaksi');
+});
 
