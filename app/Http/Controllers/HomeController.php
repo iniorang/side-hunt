@@ -58,6 +58,6 @@ class HomeController extends Controller
         $pelamar_count = Pelamar::count();
         $transaksi_count = Transaksi::count();
 
-        return view('admin.AdminDashboard', compact('sidejob', 'user', 'pelamar', 'user_count', 'job_count', 'pelamar_count','transaksi_count'));
+        return view('admin.AdminDashboard', compact('sidejob','transaksi', 'user', 'pelamar', 'user_count', 'job_count', 'pelamar_count','transaksi_count'));
     }
 }

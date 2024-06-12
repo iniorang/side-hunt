@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     use HasFactory;
+    public $incrementing = false;
+    protected $primaryKey = 'kode';
+
+    protected $casts = [
+        'kode' => 'string'
+    ];
 
     protected $fillable = [
-        'pembuat','pembuat_id','pekerja','pekerja_id','jumlah','dibuat'
+        'kode','pembuat_id','pekerja_id','jumlah','dibuat'
     ];
 
     public function pembuat(){

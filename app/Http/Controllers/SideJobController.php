@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
-
+use Illuminate\Support\Facades\Auth;
 
 class SideJobController extends Controller
 {
@@ -145,4 +145,6 @@ class SideJobController extends Controller
         $pelamar->update(['status'=>'ditolak']);
         return redirect()->back();
     }
+
+
 }

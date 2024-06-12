@@ -47,12 +47,12 @@
 
                                     const map = L.map("map", {
                                         minZoom: 2,
-                                        center: [{{$sidejob->koordinat}}]
+                                        center: [{{ $sidejob->koordinat }}]
                                     })
 
-                                    var marker = L.marker([{{$sidejob->koordinat}}]).addTo(map);
+                                    var marker = L.marker([{{ $sidejob->koordinat }}]).addTo(map);
 
-                                    map.setView([{{$sidejob->koordinat}}], 16);
+                                    map.setView([{{ $sidejob->koordinat }}], 16);
 
                                     L.esri.Vector.vectorBasemapLayer(basemapEnum, {
                                         apiKey: apiKey
@@ -112,42 +112,106 @@
                     <div class="card border-0 shadow-sm rounded">
                         <div class="card-body">
                             <h4>Daftar Pelamar:</h4>
-                            <ul>
-                                @foreach ($pelamar as $pelamaritem)
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col">
-                                                <p>{{ $pelamaritem->user->nama }}</p>
-                                            </div>
-                                            <div class="col">
-                                                <div class="btn-group justify-content-end">
-                                                    @if ($pelamaritem->status == 'tunda')
-                                                        <form action="{{ route('pelamar.terima', $pelamaritem) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <button type="submit" class="btn btn-success">Terima</button>
-                                                        </form>
-                                                        <form action="{{ route('pelamar.tolak', $pelamaritem) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <button type="submit" class="btn btn-danger">Tolak</button>
-                                                        </form>
-                                                    @else
-                                                        <p>Status: {{ $pelamaritem->status }}</p>
-                                                    @endif
-                                                </div>
-                                            </div>
+
+                            <!-- Tab Navigation -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="semua-tab" data-bs-toggle="tab" href="#semua"
+                                        role="tab" aria-controls="semua" aria-selected="true">Semua Pelamar</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="disetujui-tab" data-bs-toggle="tab" href="#disetujui"
+                                        role="tab" aria-controls="disetujui" aria-selected="false">Pelamar Disetujui</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab Content -->
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="semua" role="tabpanel"
+                                    aria-labelledby="semua-tab">
+                                    @if ($pelamar->isEmpty())
+                                        <div class="alert alert-warning" role="alert">
+                                            Belum ada pelamar untuk pekerjaan ini.
                                         </div>
-                                @endforeach
+                                    @else
+                                        <ul>
+                                            @foreach ($pelamar as $pelamaritem)
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>{{ $pelamaritem->user->nama }}</p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="btn-group justify-content-end">
+                                                                @if ($pelamaritem->status == 'tunda')
+                                                                    <form
+                                                                        action="{{ route('pelamar.terima', $pelamaritem) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <button type="submit"
+                                                                            class="btn btn-success">Terima</button>
+                                                                    </form>
+                                                                    <form
+                                                                        action="{{ route('pelamar.tolak', $pelamaritem) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Tolak</button>
+                                                                    </form>
+                                                                @else
+                                                                    <p>Status: {{ $pelamaritem->status }}</p>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </div>
+                                <div class="tab-pane fade" id="disetujui" role="tabpanel" aria-labelledby="disetujui-tab">
+                                    @php $pelamarDiterima = $pelamar->where('status', 'diterima'); @endphp
+                                    @if ($pelamarDiterima->isEmpty())
+                                        <div class="alert alert-warning" role="alert">
+                                            Belum ada pelamar yang disetujui.
+                                        </div>
+                                    @else
+                                        <ul>
+                                            @foreach ($pelamarDiterima as $pelamaritem)
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>{{ $pelamaritem->user->nama }}</p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <form
+                                                                action="{{ route('transaksi.buat', $pelamaritem->user->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="input-group">
+                                                                    <input type="number" name="jumlah"
+                                                                        class="form-control" placeholder="Jumlah Gaji"
+                                                                        required>
+                                                                    <button type="submit" class="btn btn-primary">Buat
+                                                                        Transaksi</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                        </ul>
+                    </div>
                 @endif
             </div>
         </div>
     </div>
-    </div>
-    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
