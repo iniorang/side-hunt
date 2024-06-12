@@ -54,6 +54,10 @@
         transition: .5s;
         background-color: lightgrey;
     }
+    .judul {
+        color: #1B4841;
+
+    }
 
     a {
         text-decoration: none
@@ -103,7 +107,7 @@
         left: -30%;
         width: var(--nav-width);
         height: 100vh;
-        background-color: #198754;
+        background-color: #1B4841;
         padding: .5rem 1rem 0 0;
         transition: .5s;
         z-index: var(--z-fixed)
@@ -158,6 +162,12 @@
 
     .nav_icon {
         font-size: 1.25rem
+        color
+    }
+    .card-body {
+        color: #1B4841;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .show {
@@ -239,25 +249,21 @@
                                 <i class='bx bx-grid-alt nav_icon'></i>
                                 <span class="nav_name">Overview</span>
                             </a>
-                            <a href="#peserta" class="nav_link" data-bs-toggle="tab">
+                            <a href="#pengguna" class="nav_link" data-bs-toggle="tab">
                                 <i class='bx bx-user nav_icon'></i>
-                                <span class="nav_name">Users</span>
+                                <span class="nav_name">User</span>
                             </a>
-                            <a href="#kompetisi" class="nav_link" data-bs-toggle="tab">
-                                <i class='bx bx-message-square-detail nav_icon'></i>
-                                <span class="nav_name">Kompetesi</span>
+                            <a href="#pekerjaan" class="nav_link" data-bs-toggle="tab">
+                                <i class="bi bi-suitcase-lg"></i>
+                                <span class="nav_name">User</span>
                             </a>
-                            <a href="#tim" class="nav_link" data-bs-toggle="tab">
-                                <i class='bx bx-group nav_icon'></i>
-                                <span class="nav_name">Tim</span>
+                            <a href="#pelamar" class="nav_link" data-bs-toggle="tab">
+                                <i class="bi bi-envelope-paper"></i>
+                                <span class="nav_name">User</span>
                             </a>
-                            <a href="#trans" class="nav_link" data-bs-toggle="tab">
-                                <i class='bx bx-group nav_icon'></i>
-                                <span class="nav_name">Transaksi</span>
-                            </a>
-                            <a href="#org" class="nav_link" data-bs-toggle="tab">
-                                <i class='bx bxs-balloon nav_icon'></i>
-                                <span class="nav_name">Penyelenggara</span>
+                            <a href="#pelamar" class="nav_link" data-bs-toggle="tab">
+                                <i class="bi bi-wallet2"></i>
+                                <span class="nav_name">User</span>
                             </a>
                         </div>
                     </div>
