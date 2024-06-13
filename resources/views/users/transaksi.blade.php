@@ -15,14 +15,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($transaksi as $transaksi)
+            @foreach ($transaksi as $t)
                 <tr>
-                    <td>{{ $transaksi->kode }}</td>
-                    <td>{{ $transaksi->pembuat }}</td>
-                    <td>{{ $transaksi->pekerja }}</td>
-                    <td>{{ $transaksi->jumlah }}</td>
-                    <td>{{ $transaksi->status }}</td>
-                    <td>{{ $transaksi->dibuat }}</td>
+                    <td>{{ $t->kode }}</td>
+                    <td>{{ $t->pembuat }}</td>
+                    <td>{{ $t->pekerja }}</td>
+                    <td>{{ $t->jumlah }}</td>
+                    <td>{{ $t->status }}</td>
+                    <td>{{ $t->dibuat }}</td>
                 </tr>
             @endforeach
         </tbody>

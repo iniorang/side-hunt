@@ -25,14 +25,15 @@ class UsersController extends Controller
         $user = User::findorfail($id);
         return view('users.profile', compact('user'));
     }
-
+    
+    
+    //Untuk admin
     public function showAdmin($id)
     {
         $user = User::findorfail($id);
         return view('admin.users.profile', compact('user'));
     }
 
-    //Untuk admin
     public function create(): View
     {
         return view('admin.users.create');
@@ -59,9 +60,9 @@ class UsersController extends Controller
 
     public function edit(string $id): View
     {
-        $sidejob = User::findorfail($id);
+        $user = User::findorfail($id);
 
-        return view('admin.users.edit', compact('sidejob'));
+        return view('admin.users.edit', compact('user'));
     }
 
     //Cara code untuk ubah data
@@ -72,7 +73,7 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'alamat' => ['required', 'string', 'max:255'],
             'telpon' => ['required', 'string', 'numeric'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'password' => ['string', 'min:8'],
         ]);
         $user = User::findorfail($id);
         $user->update([
@@ -80,10 +81,10 @@ class UsersController extends Controller
             'email' => $request['email'],
             'alamat' => $request['alamat'],
             'telpon' => $request['telpon'],
-            'password' => Hash::make($request['password']),
+            // 'password' => Hash::make($request['password']),
         ]);
 
-        return redirect()->back()->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.index')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function destroy($id): RedirectResponse

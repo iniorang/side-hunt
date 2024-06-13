@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cari', [SideJobController::class, 'cari'])->name('sidejob.cari');
 Route::get('/job/{id}', [SideJobController::class, 'show'])->name('sidejob.detail');
 
@@ -38,8 +38,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['isAdmin'])->group(function(){
-    Route::get('/admin', [HomeController::class, 'admin'])->name('admin.index');
-    Route::get('/admin/user/{id}',[UsersController::class,'showAdmin'])->name('admin.show.profile');
+    Route::get('/admin', [HomeController::class, 'admin'])->name('admin.index'); // Index
+    Route::get('/admin/user/{id}/edit',[UsersController::class,'showAdmin'])->name('admin.show.profile');
+    Route::match(['get','put'],'/admin/user/{id}',[UsersController::class,'update'])->name('admin.update.profile');
+    Route::get('/admin/user/edit/{id}',[UsersController::class,'edit'])->name('admin.edit.profile');
+    Route::get('/admin/user/delete/{id}',[UsersController::class,'delete'])->name('admin.delete.profile');
+
+    //Sidejob
+
     Route::get('/admin/transaksi/setujui/{kode}', [TransaksiController::class, 'setujuiTransaksi'])->name('admin.transaksi.setuju');
     Route::post('/admin/transaksi/tolak/{kode}', [TransaksiController::class, 'tolakTransaksi'])->name('admin.transaksi.tolak');
 });

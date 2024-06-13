@@ -261,7 +261,7 @@
                                 <i class="bi bi-envelope-paper"></i>
                                 <span class="nav_name">User</span>
                             </a>
-                            <a href="#pelamar" class="nav_link" data-bs-toggle="tab">
+                            <a href="#transaksi" class="nav_link" data-bs-toggle="tab">
                                 <i class="bi bi-wallet2"></i>
                                 <span class="nav_name">User</span>
                             </a>
@@ -327,6 +327,4 @@
         // Your code to run since DOM is loaded and ready
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 </html>

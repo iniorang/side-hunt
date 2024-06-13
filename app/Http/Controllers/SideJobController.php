@@ -63,13 +63,32 @@ class SideJobController extends Controller
         //Cari data sesuai id
         $sidejob = SideJob::findorfail($id);
         $pelamar = Pelamar::where('job_id', $sidejob->id)->paginate(10);
-        
+
         //Kirimkan ke view ini
-        return view('pekerjaan.detail', compact('sidejob','pelamar'));
+        return view('pekerjaan.detail', compact('sidejob', 'pelamar'));
+    }
+
+    //Tampilan lihat data pekerjaan sesuai id untuk admin
+    public function showAdmin(string $id): View
+    {
+        //Cari data sesuai id
+        $sidejob = SideJob::findorfail($id);
+        $pelamar = Pelamar::where('job_id', $sidejob->id)->paginate(10);
+
+        //Kirimkan ke view ini
+        return view('admin.pekerjaan.detail', compact('sidejob', 'pelamar'));
     }
 
     //Tampilan untuk form edit 
     public function edit(string $id): View
+    {
+        $sidejob = SideJob::findorfail($id);
+
+        return view('pekerjaan.edit', compact('sidejob'));
+    }
+
+    //Tampilan untuk form edit 
+    public function editAdmin(string $id): View
     {
         $sidejob = SideJob::findorfail($id);
 
@@ -123,7 +142,7 @@ class SideJobController extends Controller
         return view('pekerjaan.hasil', compact('hasil'));
     }
 
-    public function buatPermintaan(Request $request,SideJob $sidejob): RedirectResponse
+    public function buatPermintaan(Request $request, SideJob $sidejob): RedirectResponse
     {
         Pelamar::create([
             'user_id' => auth()->id(),
@@ -136,15 +155,13 @@ class SideJobController extends Controller
 
     public function terima(Pelamar $pelamar)
     {
-        $pelamar->update(['status'=>'diterima']);
+        $pelamar->update(['status' => 'diterima']);
         return redirect()->back();
     }
 
     public function tolak(Pelamar $pelamar)
     {
-        $pelamar->update(['status'=>'ditolak']);
+        $pelamar->update(['status' => 'ditolak']);
         return redirect()->back();
     }
-
-
 }
