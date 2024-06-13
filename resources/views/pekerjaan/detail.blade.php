@@ -108,6 +108,23 @@
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col">
+                <div class="card border-0 shadow-sm rounded">
+                    <div class="card-body">
+                        <h1>Pembuat : {{ $pembuat->nama }}</h1>
+                        <h2>Telepon : {{ $pembuat->telpon }}</h2>
+                        <h2>Alamat  : {{ $pembuat->alamat }}</h2>
+                        <a href="{{ route('user.profile', $pembuat->id) }}">
+                            <button class="btn btn-primary">Profile</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col">
                 @if ($sidejob->pembuat == auth()->id())
                     <div class="card border-0 shadow-sm rounded">
                         <div class="card-body">
@@ -121,7 +138,8 @@
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" id="disetujui-tab" data-bs-toggle="tab" href="#disetujui"
-                                        role="tab" aria-controls="disetujui" aria-selected="false">Pelamar Disetujui</a>
+                                        role="tab" aria-controls="disetujui" aria-selected="false">Pelamar
+                                        Disetujui</a>
                                 </li>
                             </ul>
 

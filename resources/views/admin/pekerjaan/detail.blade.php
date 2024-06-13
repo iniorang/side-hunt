@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.polos')
 
 @section('peta')
     #map{
@@ -60,45 +60,14 @@
                                 </script>
                             </div>
                             {{-- Untuk yang log in adalah pembuat --}}
-                            @if (auth()->check())
-                                @php
-                                    $userApplied = app('App\Models\Pelamar')
-                                        ->where('job_id', $sidejob->id)
-                                        ->where('user_id', auth()->id())
-                                        ->exists();
-                                @endphp
-                                @if ($sidejob->pembuat == auth()->id())
-                                    <div class="btn-group">
-                                        <a href="{{ route('sidejob.edit', $sidejob) }}" class="btn btn-primary">Edit</a>
-                                        <form action="{{ route('sidejob.destroy', $sidejob) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </div>
-                                    {{-- Untuk yang login yang bukan pembuat dan belum daftar ke pekerjaan tersebut --}}
-                                @elseif(!$userApplied)
-                                    <form action="{{ route('sidejob.buatPermintaan', $sidejob) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary">Daftar Pekerjaan</button>
-                                    </form>
-                                @else
-                                    {{-- Untuk yang membuat lamaran menunggu status --}}
-                                    @php
-                                        $userPelamar = $pelamar->where('user_id', auth()->id())->first();
-                                    @endphp
-                                    @if ($userPelamar->status == 'tunda')
-                                        <p>Anda sudah melamar, tunggu pembuat membuat pilihan untuk terima atau tolak.</p>
-                                    @elseif($userPelamar->status == 'diterima')
-                                        <p>Anda sudah diterima oleh pembuat.</p>
-                                    @elseif($userPelamar->status == 'ditolak')
-                                        <p>Anda sudah ditolak oleh pembuat.</p>
-                                    @endif
-                                @endif
-                                {{-- Guest --}}
-                            @else
-                                <a href="{{ route('login') }}" class="btn btn-primary">Login untuk Melamar</a>
-                            @endif
+                            <div class="btn-group">
+                                <a href="{{ route('sidejob.edit', $sidejob) }}" class="btn btn-primary">Edit</a>
+                                <form action="{{ route('sidejob.destroy', $sidejob) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -143,26 +112,7 @@
                                                         </div>
                                                         <div class="col">
                                                             <div class="btn-group justify-content-end">
-                                                                @if ($pelamaritem->status == 'tunda')
-                                                                    <form
-                                                                        action="{{ route('pelamar.terima', $pelamaritem) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('PATCH')
-                                                                        <button type="submit"
-                                                                            class="btn btn-success">Terima</button>
-                                                                    </form>
-                                                                    <form
-                                                                        action="{{ route('pelamar.tolak', $pelamaritem) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('PATCH')
-                                                                        <button type="submit"
-                                                                            class="btn btn-danger">Tolak</button>
-                                                                    </form>
-                                                                @else
-                                                                    <p>Status: {{ $pelamaritem->status }}</p>
-                                                                @endif
+                                                                <p>Status: {{ $pelamaritem->status }}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -184,20 +134,6 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <p>{{ $pelamaritem->user->nama }}</p>
-                                                        </div>
-                                                        <div class="col">
-                                                            <form
-                                                                action="{{ route('transaksi.buat', $pelamaritem->user->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <div class="input-group">
-                                                                    <input type="number" name="jumlah"
-                                                                        class="form-control" placeholder="Jumlah Gaji"
-                                                                        required>
-                                                                    <button type="submit" class="btn btn-primary">Buat
-                                                                        Transaksi</button>
-                                                                </div>
-                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.polos')
 @section('peta')
     #map{
     height: 400px;
@@ -12,9 +12,7 @@
     <div class="container-fluid py-5 mt-2 justify-content-center w-50">
         <h1 class="text-center display-5 fw-bold mb-5">Edit</h1>
         <div class="row">
-
             <form action="{{ route('sidejob.update', $sidejob->id) }}" method="POST" enctype="multipart/form-data">
-
                 @csrf
                 @method('PUT')
                 <div class="form-group mb-3">

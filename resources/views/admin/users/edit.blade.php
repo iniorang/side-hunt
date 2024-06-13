@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.polos')
 
 @section('content')
     <div class="container-fluid py-5 mt-2 justify-content-center w-50">
@@ -46,25 +46,23 @@
                     <label class="font-weight-bold">Nomor Telpon</label>
                     <input type="number" class="form-control @error('telpon') is-invalid @enderror" name="telpon"
                         value="{{ old('telpon', $user->telpon) }}" placeholder="Masukkan nomor telpon">
-                    @error('alamat')
+                    @error('telpon')
                         <div class="alert alert-danger mt-2">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="mb-3">Ubah Password :</label>
-                    <div class="col">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                            name="password" required autocomplete="current-password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Dompet</label>
+                    <input type="number" class="form-control @error('dompet') is-invalid @enderror" name="dompet"
+                        value="{{ old('dompet', $user->dompet) }}" placeholder="">
+                    @error('dompet')
+                        <div class="alert alert-danger mt-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                <button type="submit" class="btn btn-md btn-primary me-3">SAVE</button>
+                <button type="submit" class="btn btn-md btn-primary me-3">Simpan</button>
                 <button type="reset" class="btn btn-md btn-warning">RESET</button>
             </form>
         </div>

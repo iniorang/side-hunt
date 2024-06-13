@@ -38,6 +38,14 @@
         .profile-detail label {
             font-weight: bold;
         }
+
+        .jobs-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 
@@ -60,8 +68,40 @@
         </div>
         <div class="profile-detail">
             <label for="phone">No. Telpon:</label>
-            <p id="phone">{{ $user->telepon }}</p>
+            <p id="phone">{{ $user->telpon }}</p>
         </div>
+    </div>
+
+    <div class="jobs-container">
+        <h3>Pekerjaan yang Dibuat</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nama Pekerjaan</th>
+                    <th>Deskripsi</th>
+                    <th>Tanggal Buat</th>
+                    <th>Alamat</th>
+                    <th>Gaji Minimum</th>
+                    <th>Gaji Maksimum</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($jobs as $job)
+                    <tr>
+                        <td>{{ $job->nama }}</td>
+                        <td>{{ $job->deskripsi }}</td>
+                        <td>{{ $job->tanggal_buat }}</td>
+                        <td>{{ $job->alamat }}</td>
+                        <td>Rp{{ $job->min_gaji }}</td>
+                        <td>Rp{{ $job->max_gaji }}</td>
+                        <td>
+                            <a href="{{ route('sidejob.detail', $job->id) }}" class="btn btn-info btn-sm">Detail</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

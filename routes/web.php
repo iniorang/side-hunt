@@ -18,6 +18,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cari', [SideJobController::class, 'cari'])->name('sidejob.cari');
 Route::get('/job/{id}', [SideJobController::class, 'show'])->name('sidejob.detail');
 
+Route::get('/profile/{id}', [UsersController::class, 'show'])->name('user.profile');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/lamaran', [UsersController::class, 'pelamaran'])->name('user.history');
@@ -25,7 +26,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sidejob/create', [SideJobController::class, 'create'])->name('sidejob.create');
     Route::post('/sidejob', [SideJobController::class, 'store'])->name('sidejob.store');
     Route::get('/sidejob/{id}', [SideJobController::class, 'show'])->name('sidejob.show');
-    Route::get('/profile/{id}',[UsersController::class,'show'])->name('user.profile');
     Route::get('/sidejob/{sidejob}/edit', [SideJobController::class, 'edit'])->name('sidejob.edit');
     Route::put('/sidejob/{sidejob}', [SideJobController::class, 'update'])->name('sidejob.update');
     Route::delete('/sidejob/{sidejob}', [SideJobController::class, 'destroy'])->name('sidejob.destroy');
@@ -45,6 +45,8 @@ Route::middleware(['isAdmin'])->group(function(){
     Route::get('/admin/user/delete/{id}',[UsersController::class,'delete'])->name('admin.delete.profile');
 
     //Sidejob
+    Route::get('/sidejob/{id}', [SideJobController::class, 'showAdmin'])->name('admin.sidejob.show');
+    Route::get('/sidejob/edit/{id}', [SideJobController::class, 'editAdmin'])->name('admin.sidejob.edit');
 
     Route::get('/admin/transaksi/setujui/{kode}', [TransaksiController::class, 'setujuiTransaksi'])->name('admin.transaksi.setuju');
     Route::post('/admin/transaksi/tolak/{kode}', [TransaksiController::class, 'tolakTransaksi'])->name('admin.transaksi.tolak');

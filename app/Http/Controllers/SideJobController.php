@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class SideJobController extends Controller
@@ -63,9 +64,10 @@ class SideJobController extends Controller
         //Cari data sesuai id
         $sidejob = SideJob::findorfail($id);
         $pelamar = Pelamar::where('job_id', $sidejob->id)->paginate(10);
+        $pembuat = User::findorfail($sidejob->pembuat);
 
         //Kirimkan ke view ini
-        return view('pekerjaan.detail', compact('sidejob', 'pelamar'));
+        return view('pekerjaan.detail', compact('sidejob', 'pelamar','pembuat'));
     }
 
     //Tampilan lihat data pekerjaan sesuai id untuk admin

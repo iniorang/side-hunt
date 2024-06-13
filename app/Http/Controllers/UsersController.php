@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
+use App\Models\SideJob;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
@@ -22,16 +23,18 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $user = User::findorfail($id);
-        return view('users.profile', compact('user'));
+        $user = User::findOrFail($id);
+        $jobs = SideJob::where('pembuat', $id)->get(); // Fetch jobs created by the user
+        return view('users.profile', compact('user', 'jobs'));
     }
     
     
     //Untuk admin
     public function showAdmin($id)
     {
-        $user = User::findorfail($id);
-        return view('admin.users.profile', compact('user'));
+        $user = User::findOrFail($id);
+        $jobs = SideJob::where('pembuat', $id)->get();
+        return view('admin.users.profile', compact('user','jobs'));
     }
 
     public function create(): View

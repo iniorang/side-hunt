@@ -29,7 +29,7 @@
                                         @auth
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('sidejob.destroy', $sidejob->id) }}" method="POST">
-                                                <a href="{{ route('sidejob.show', $sidejob->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                                                <a href="{{ route('sidejob.detail', $sidejob->id) }}" class="btn btn-sm btn-dark">SHOW</a>
                                                 <a href="{{ route('sidejob.edit', $sidejob->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                                 @csrf
                                                 @method('DELETE')

@@ -16,10 +16,11 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
 
 </head>
@@ -54,6 +55,7 @@
         transition: .5s;
         background-color: lightgrey;
     }
+
     .judul {
         color: #1B4841;
 
@@ -63,7 +65,7 @@
         text-decoration: none
     }
 
-    .db-tab{
+    .db-tab {
         background-color: #ababab;
     }
 
@@ -138,7 +140,8 @@
     }
 
     .nav_logo img {
-        width: 50px; /* Set the width and height of the logo as desired */
+        width: 50px;
+        /* Set the width and height of the logo as desired */
         height: 50px;
         border-radius: 50%;
         overflow: hidden;
@@ -161,9 +164,9 @@
     }
 
     .nav_icon {
-        font-size: 1.25rem
-        color
+        font-size: 1.25rem color
     }
+
     .card-body {
         color: #1B4841;
         margin-bottom: 20px;
@@ -221,18 +224,27 @@
         .show {
             width: calc(var(--nav-width) + 156px)
         }
-        .tab-pane{
+
+        .tab-pane {
             width: 100% !important;
         }
 
         .body-pd {
             padding-left: calc(var(--nav-width) + 188px)
         }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
     }
 </style>
 
 <body>
     <div id="app">
+
         <body id="body-pd">
             <header class="header" id="header">
                 <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
@@ -255,24 +267,25 @@
                             </a>
                             <a href="#pekerjaan" class="nav_link" data-bs-toggle="tab">
                                 <i class="bi bi-suitcase-lg"></i>
-                                <span class="nav_name">User</span>
+                                <span class="nav_name">Pekerjaan</span>
                             </a>
-                            <a href="#pelamar" class="nav_link" data-bs-toggle="tab">
+                            <a href="#pelamars" class="nav_link" data-bs-toggle="tab">
                                 <i class="bi bi-envelope-paper"></i>
-                                <span class="nav_name">User</span>
+                                <span class="nav_name">Pelamar</span>
                             </a>
                             <a href="#transaksi" class="nav_link" data-bs-toggle="tab">
                                 <i class="bi bi-wallet2"></i>
-                                <span class="nav_name">User</span>
+                                <span class="nav_name">Transaksi</span>
                             </a>
                         </div>
                     </div>
-                    <a href="{{ route('logout') }}" class="nav_link">
+                    <a class="nav_link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class='bx bx-log-out nav_icon'></i>
-                        <span class="nav_name">Log Out</span>
+                        <span class="nav_name">{{ __('Logout') }}</span>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
+                        @csrf
                     </form>
                 </nav>
             </div>
@@ -327,4 +340,5 @@
         // Your code to run since DOM is loaded and ready
     });
 </script>
+
 </html>

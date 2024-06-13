@@ -20,7 +20,9 @@ class TransaksiController extends Controller
             ->orWhere('pekerja_id', auth()->id())
             ->paginate(10);
 
-        return view('users.transaksi', compact('transaksi'));
+        $user = Auth::user();
+
+        return view('users.transaksi', compact('transaksi','user'));
     }
 
     public function buatTransaksi(Request $request, $pekerjaId)
