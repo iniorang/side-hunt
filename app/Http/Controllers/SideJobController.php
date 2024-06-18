@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SideJob;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
@@ -12,12 +13,18 @@ use Illuminate\Support\Facades\Auth;
 
 class SideJobController extends Controller
 {
-    //Tampilkan semua pekerjaan
-    public function index(): View
+    public function __construct()
     {
-        $sidejob = SideJob::where('pembuat', auth()->id())->paginate(10);
+        $this->middleware('auth:api');
+    }
+    //Tampilkan semua pekerjaan
+    public function index(): JsonResponse
+    {
+        // $sidejob = SideJob::where('pembuat', auth()->id())->paginate(10);
 
-        return view('pekerjaan.list', compact('sidejob'));
+        // return view('pekerjaan.list', compact('sidejob'));
+        $sidejobs = SideJob::where('pembuat', auth()->id())->paginate(10);
+        return response()->json($sidejobs);
     }
 
     //Tampilan form tambah kerja sampingan
@@ -27,7 +34,7 @@ class SideJobController extends Controller
     }
 
     //Cara memasukan inputan kerja sampingan ke database
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse
     {
         // dd($request->all());
 
@@ -42,7 +49,7 @@ class SideJobController extends Controller
         ]);
         $today = Carbon::now();
 
-        SideJob::create([
+        $sideJob = SideJob::create([
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'tanggal_buat' => $today->toDateString(),
@@ -54,30 +61,33 @@ class SideJobController extends Controller
             'jumlah_pelamar_diterima' => '0',
             'pembuat' => auth()->id()
         ]);
-        return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil tersimpan']);
+        return response()->json(['success' => 'Data berhasil tersimpan', 'sideJob' => $sideJob], 201);
+        // return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil tersimpan']);
     }
 
     //Tampilan lihat data pekerjaan sesuai id
-    public function show(string $id): View
+    public function show(string $id): JsonResponse
     {
         //Cari data sesuai id
         $sidejob = SideJob::findorfail($id);
         $pelamar = Pelamar::where('job_id', $sidejob->id)->paginate(10);
         
         //Kirimkan ke view ini
-        return view('pekerjaan.detail', compact('sidejob','pelamar'));
+        // return view('pekerjaan.detail', compact('sidejob','pelamar'));
+        return response()->json(['sidejob' => $sidejob, 'pelamar' => $pelamar]);
     }
 
     //Tampilan untuk form edit 
     public function edit(string $id): View
     {
         $sidejob = SideJob::findorfail($id);
+        $pelamar = Pelamar::where('job_id', $sidejob->id)->paginate(10);
 
         return view('pekerjaan.edit', compact('sidejob'));
     }
 
     //Cara code untuk ubah data
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id): JsonResponse
     {
         $request->validate([
             'nama' => 'required|min:5',
@@ -100,27 +110,37 @@ class SideJobController extends Controller
             'jumlah_pelamar_diterima' => '0',
             'pembuat' => auth()->id()
         ]);
-
-        return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil diubah']);
+        return response()->json(['success' => 'Data berhasil diubah', 'sideJob' => $sidejob]);
+        // return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil diubah']);
     }
 
     //Metode untuk menghapus data di database
-    public function destroy($id): RedirectResponse
+    public function destroy(Request $request): JsonResponse
     {
-        $sidejob = SideJob::findorfail($id);
+        // $sidejob = SideJob::findorfail($id);
 
-        $sidejob->delete();
+        // $sidejob->delete();
 
-        return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil dihapus']);
+        // return redirect()->route('sidejob.index')->with(['success' => 'Data berhasil dihapus']);
+
+        $cari = $request->input('cari');
+        $hasil = SideJob::where('nama', 'like', "%" . $cari . "%")->paginate(30);
+
+        return response()->json($hasil);
     }
 
     //Metode untuk mencari data
     public function cari(Request $request)
     {
+        // $cari = $request->input('cari');
+        // $hasil = SideJob::where('nama', 'like', "%" . $cari . "%")->paginate(30);
+
+        // return view('pekerjaan.hasil', compact('hasil'));
+
         $cari = $request->input('cari');
         $hasil = SideJob::where('nama', 'like', "%" . $cari . "%")->paginate(30);
 
-        return view('pekerjaan.hasil', compact('hasil'));
+        return response()->json($hasil);
     }
 
     public function buatPermintaan(Request $request,SideJob $sidejob): RedirectResponse

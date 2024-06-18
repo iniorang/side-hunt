@@ -12,20 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-
-    /**
-     * Register a new user.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'alamat' => ['required', 'string', 'max:255'],
-            'telpon' => ['required', 'string','numeric'],
+            'telpon' => ['required', 'string', 'numeric'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -41,38 +34,33 @@ class AuthController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-
         return response()->json(['message' => 'User created successfully'], 201);
     }
 
-    /**
-     * Authenticate the user and return a JWT token if valid credentials are provided.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        $credentials = request(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $credentials = $request->only(['email', 'password']);
+
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'Could not create token'], 500);
         }
+
         return $this->respondWithToken($token);
     }
-    /**
-     * Respond with a JWT token.
-     *
-     * @param  string  $token
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     protected function respondWithToken($token)
     {
         return response()->json([
@@ -81,18 +69,16 @@ class AuthController extends Controller
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
-    /**
-     * Get the authenticated user's profile.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function profile(Request $request)
-    {
-        // Retrieve the authenticated user
-        $user = Auth::user();
 
-        // Return the user's profile information
-        return response()->json($user);
+    public function profile()
+    {
+        return response()->json(auth()->user());
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 }
