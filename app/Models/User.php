@@ -50,6 +50,14 @@ class User extends Authenticatable implements Wallet
         ];
     }
 
+    public function getJWTidentifer() {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()  {
+        return[];
+    }
+
     public function pembuat(){
         return $this->hasMany(SideJob::class,'pembuat');
     }
