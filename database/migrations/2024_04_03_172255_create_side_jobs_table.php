@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('max_pekerja');
             $table->integer('jumlah_pelamar_diterima')->default('0');   
             $table->bigInteger('pembuat')->unsigned();
+            $table->restrictOnDelete();
             $table->timestamps();
         });
         
