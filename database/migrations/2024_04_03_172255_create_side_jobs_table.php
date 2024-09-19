@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('side_jobs', function (Blueprint $table) {
-            $table->id();
+            $table->id()->restrictOnDelete();;
             $table->string('nama');
             $table->string('deskripsi');
             $table->date('tanggal_buat');
@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('max_pekerja');
             $table->integer('jumlah_pelamar_diterima')->default('0');   
             $table->bigInteger('pembuat')->unsigned();
-            $table->restrictOnDelete();
             $table->timestamps();
         });
         
